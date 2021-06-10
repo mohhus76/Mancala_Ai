@@ -43,3 +43,49 @@ def min_value(state,alpha,beta,level):
             minChild = child
             
     return v,minChild;
+
+
+
+
+
+
+
+
+
+
+
+
+
+###################################################################################################################
+def minMaxSearch(state,level):
+    maxV = max_value_minMax(state,level);
+    return maxV; 
+
+
+def max_value_minMax(state,level):
+    v = -10000
+    maxChild = state
+    
+    if(level == 0):
+        return evaluate(state),maxChild
+
+    for child in get_node_children(state):      
+        if(v<min_value(child,level-1)[0]):
+            v=min_value(child,level-1)[0]
+            maxChild=child
+            
+    return v,maxChild;
+
+def min_value_minMax(state,level):
+    v = 10000
+    minChild = state
+    
+    if(level == 0):
+        return evaluate(state),minChild
+
+    for child in get_node_children(state):        
+       if(v>max_value(child,level-1)[0]):
+            v=max_value(child,level-1)[0]
+            minChild=child
+            
+    return v,minChild;
