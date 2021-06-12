@@ -38,6 +38,50 @@ def get_node_children(in_state: list,playerType = 0,stealing=False):#0 for AI , 
     return children
 
 
+    @staticmethod
+    def evaluate(state):
+        return sum(state[0:6]) - sum(state[7:13])
+
+
+    @staticmethod
+    def extra_turn(state,selected_hole): #selected hole is zero based/ AI plays in the upper half/human in the lower half
+        num_of_stones_to_propagate = state[selected_hole]
+        score_hole_index = 6
+        if selected_hole>=7:
+            score_hole_index = 13
+        if (((selected_hole) + num_of_stones_to_propagate) % 14 == score_hole_index):  # last stone condition
+            return True
+
+        return False
+
+    @staticmethod
+    def is_game_over(state):
+        if sum(state[0:5]) == 0:
+            state[13] += sum(state[7:12])  # adding remaining holes to score hole
+            for i in range(7, 13):
+                state[i] = 0  # removing stones from the 6 holes
+
+            return True
+        elif sum(state[7:12]) == 0:
+            state[6] += sum(state[0:5])
+            for i in range(0, 6):
+                state[i] = 0
+            return True
+        return False
+
+    @staticmethod
+    def who_wins(state):
+        print("Player Score: {}", state[13])
+        print("AI Score: {}", state[6])
+
+        if state[13] > state[6]:
+            print("Player Won The Game!")
+
+        elif state[13] == state[6]:
+            print("DRAW!")
+
+        else:
+            print("AI Won The Game!")
 
 
 
