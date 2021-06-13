@@ -73,8 +73,8 @@ while play == "y":
 			while(new_turn_human or Utils.extra_turn(initial_state , hole_number-1)):
 				print("Human turn : \n")
 				initial_state = state[:]
-				Utils.possibleMoves(state)
-				hole_number = Utils.let_human_play() #return hole number one based
+				possible_moves=Utils.possibleMoves(state)
+				hole_number = Utils.let_human_play(possible_moves) #return hole number one based
 				state = Utils.convert_play_to_state(state, hole_number-1,stealing)
 				Utils.print_board(state)
 				if(Utils.is_game_over(state)):
