@@ -27,8 +27,12 @@ class Utils:
         print("\n\n")
 
     @staticmethod
-    def let_human_play():
+    def let_human_play(possible_moves):
         human_play = input("Choose a hole:  ")
+
+        if int(human_play) not in possible_moves:
+            print("Please choose a valid hole\n")
+            return Utils.let_human_play(possible_moves)
         print("\n\n")
         return int(human_play)
 
